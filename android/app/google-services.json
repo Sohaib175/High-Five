@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "510008270995",
+    "project_id": "high-five-da73e",
+    "storage_bucket": "high-five-da73e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510008270995:android:18b06258ef33663cfc2d66",
+        "android_client_info": {
+          "package_name": "com.tech_sol.high_five"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510008270995-dl0eqphn8rc4c0o4uaqd5q2i84uk1umi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tech_sol.high_five",
+            "certificate_hash": "39a5999f07d762b0706e948ade182b2bba2728d0"
+          }
+        },
+        {
+          "client_id": "510008270995-o5aitiebv1qj0v4gg99pu3j5r61u66qc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChQOv0zXXM7owyFcLBgLKpLC6l0DLfBvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510008270995-o5aitiebv1qj0v4gg99pu3j5r61u66qc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
