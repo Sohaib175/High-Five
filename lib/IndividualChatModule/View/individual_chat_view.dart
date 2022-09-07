@@ -383,7 +383,7 @@ class IndividualChatView extends StatelessWidget {
                         },
                         icon: const Icon(Icons.emoji_emotions),
                       ),
-                      suffixIcon: Obx(gi
+                      suffixIcon: Obx(
                         () => Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
