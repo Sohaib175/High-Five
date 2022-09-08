@@ -1,35 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:high_five/AuthModule/Model/user_model.dart';
 
 class FirestoreServices {
-  FirestoreServices(
-    this.user,
-  );
-  User user;
+  FirestoreServices();
+  // User user;
   // User userDisplay;
 
   // final AuthFirestoreUserVM _authUserVM = Get.find();
   // final AuthFirestoreUserVM _authFirestoreUserVM =
   //     Get.put(AuthFirestoreUserVM());
-  savesData() async {
+  savesData(
+    UserModel user,
+    //   {
+    //   required String name,
+    //   required String email,
+    //   required String photoURL,
+    //   required String userId,
+    // }
+  ) async {
     Map<String, dynamic> data = {
-      "name": user.displayName,
+      "name": user.name,
       "email": user.email,
-      "profileimage": user.photoURL,
-      "uid": user.uid,
-      "date": DateTime.now()
+      "profileimage": user.profileImage,
+      "uid": user.userId,
     };
 
-    DocumentSnapshot userExist =
-        await FirebaseFirestore.instance.collection("user").doc(user.uid).get();
+    DocumentSnapshot userExist = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(user.userId)
+        .get();
 
     if (userExist.exists) {
       return;
-      // print("asdasdasdasd");
     } else {
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(user.uid)
+          .doc(user.userId)
           .set(data);
     }
   }

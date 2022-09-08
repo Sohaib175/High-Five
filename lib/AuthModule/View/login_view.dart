@@ -370,19 +370,19 @@ class LoginView extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () async {
+          await authVM.signInWithGoogle();
           // User? user =
-          await GoogleSignInServices().signInWithGoogle();
-          // GoogleSignInServices().googleSignIn.currentUser!.email;
-          if (authVM.user != null) {
-            await FirestoreServices(authVM.user!).savesData();
-            Get.off(
-              () => HomeView(),
-              transition: Transition.rightToLeft,
-              duration: const Duration(
-                milliseconds: 300,
-              ),
-            );
-          }
+          // await authVM.signInWithGoogle();
+          // if (authVM.user != null) {
+          //   await FirestoreServices(authVM.user!).savesData();
+          // }
+          Get.off(
+            () => HomeView(),
+            transition: Transition.rightToLeft,
+            duration: const Duration(
+              milliseconds: 300,
+            ),
+          );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

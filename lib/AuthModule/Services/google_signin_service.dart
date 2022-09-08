@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:high_five/AuthModule/ViewModel/auth_vm.dart';
 
 class GoogleSignInServices {
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  final AuthVM authVM = Get.find();
+  // final AuthVM authVM = Get.find();
   // Future<UserCredential?> onSignInNew() async {
   //   // Trigger the authentication flow
   //   try {
@@ -38,7 +36,7 @@ class GoogleSignInServices {
 
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
-
+    User? user;
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
@@ -52,7 +50,7 @@ class GoogleSignInServices {
         final UserCredential userCredential =
             await auth.signInWithCredential(credential);
 
-        authVM.user = userCredential.user;
+        user = userCredential.user;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           // TODO: Account Exist
@@ -65,7 +63,7 @@ class GoogleSignInServices {
       }
     }
 
-    return authVM.user;
+    return user;
   }
 
   Future<void> signOut() async {

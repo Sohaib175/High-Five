@@ -108,9 +108,8 @@ class HomeView extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 20.sp,
                   backgroundImage: NetworkImage(
-                    authVM.user != null
-                        ? authVM.user!.photoURL!
-                        : 'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
+                    authVM.userModel.profileImage ??
+                        'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                   ),
                 ),
               ),
@@ -121,9 +120,7 @@ class HomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  authVM.user != null
-                      ? authVM.user!.displayName!
-                      : 'Dummy Name',
+                  authVM.userModel.name,
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
@@ -131,9 +128,7 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  authVM.user != null
-                      ? authVM.user!.email!
-                      : 'example@gmail.com',
+                  authVM.userModel.email,
                   style: TextStyle(
                     fontSize: 12.sp,
                     color: ConstColors.onPrimaryColor,
@@ -177,22 +172,19 @@ class HomeView extends StatelessWidget {
                   CircleAvatar(
                     radius: Get.width * 0.25,
                     backgroundImage: NetworkImage(
-                      authVM.user != null
-                          ? authVM.user!.photoURL!
-                          : 'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
+                      authVM.userModel.profileImage ??
+                          'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                     ),
                   ),
                   const ResponsiveSizedBox.vertical(10),
                   Text(
-                    authVM.user != null ? authVM.user!.displayName! : 'Name',
+                    authVM.userModel.name,
                     style:
                         TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ),
                   const ResponsiveSizedBox.vertical(10),
                   Text(
-                    authVM.user != null
-                        ? authVM.user!.email!
-                        : 'email@gmail.com',
+                    authVM.userModel.email,
                     style: TextStyle(fontSize: 12.sp),
                   ),
                 ],
@@ -226,8 +218,8 @@ class HomeView extends StatelessWidget {
                           color: ConstColors.onPrimaryColor,
                         ),
                       ),
-                      onPressed: () {
-                        GoogleSignInServices().signOut();
+                      onPressed: () async {
+                        await GoogleSignInServices().signOut();
                         Get.offAll(() => LoginView());
                       },
                     ),
