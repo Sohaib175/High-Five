@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class FirestoreService {
-  FirestoreService(
-    this.userStore,
+class FirestoreServices {
+  FirestoreServices(
+    this.user,
   );
-  User userStore;
+  User user;
   // User userDisplay;
 
   // final AuthFirestoreUserVM _authUserVM = Get.find();
@@ -13,34 +13,30 @@ class FirestoreService {
   //     Get.put(AuthFirestoreUserVM());
   savesData() async {
     Map<String, dynamic> data = {
-      "name": userStore!.displayName,
-      "email": userStore!.email,
-      "profileimage": userStore!.photoURL,
-      "uid": userStore!.uid,
+      "name": user.displayName,
+      "email": user.email,
+      "profileimage": user.photoURL,
+      "uid": user.uid,
       "date": DateTime.now()
     };
 
-    DocumentSnapshot userExist = await FirebaseFirestore.instance
-        .collection("user")
-        .doc(userStore!.uid)
-        .get();
+    DocumentSnapshot userExist =
+        await FirebaseFirestore.instance.collection("user").doc(user.uid).get();
 
     if (userExist.exists) {
-      print("asdasdasdasd");
+      return;
+      // print("asdasdasdasd");
     } else {
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(userStore!.uid)
+          .doc(user.uid)
           .set(data);
     }
   }
 
-  getData() async {
-    // /GET ALL Docs
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection("users").get();
-
-    print(snapshot.size);
-    print(snapshot.docs);
-  }
+  // getData() async {
+  //   // /GET ALL Docs
+  //   QuerySnapshot snapshot =
+  //       await FirebaseFirestore.instance.collection("users").get();
+  // }
 }

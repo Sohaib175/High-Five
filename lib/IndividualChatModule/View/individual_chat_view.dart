@@ -1,4 +1,3 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:high_five/IndividualChatModule/Model/inbox_model.dart';
@@ -12,12 +11,10 @@ class IndividualChatView extends StatelessWidget {
     Key? key,
     required this.imageURL,
     required this.name,
-    // required this.onlineStatus,
   }) : super(key: key);
   final IndChatVM indChatVM = Get.put(IndChatVM());
   final String imageURL;
   final String name;
-  // final String? onlineStatus;
   final FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -53,43 +50,59 @@ class IndividualChatView extends StatelessWidget {
 
   PreferredSize _buildAppBar() {
     return PreferredSize(
-      preferredSize: Size(Get.width, 40.h),
+      preferredSize: Size(Get.width, 80),
       child: Container(
-        padding: REdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: ConstColors.primaryColor,
-        ),
+        color: ConstColors.primaryColor,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: SizedBox(
-                width: 50.w,
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 20,
+              ),
+              child: InkWell(
+                onTap: () {
+                  Get.back();
+                },
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.arrow_back),
-                    const ResponsiveSizedBox.horizontal(8),
+                    Icon(
+                      Icons.arrow_back_ios,
+                      size: 16.sp,
+                    ),
                     CircleAvatar(
-                      radius: 14.r,
+                      radius: 20.sp,
                       backgroundImage: NetworkImage(imageURL),
                     ),
                   ],
                 ),
               ),
             ),
-            const ResponsiveSizedBox.horizontal(8),
-            Text(
-              name,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: ConstColors.onPrimaryColor,
+                  ),
+                ),
+                Text(
+                  'example@gmail.com',
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    color: ConstColors.onPrimaryColor,
+                  ),
+                ),
+              ],
             ),
             const Spacer(),
-            _buildPopMenuAppBar()
+            _buildPopMenuAppBar(),
           ],
         ),
       ),
@@ -104,10 +117,7 @@ class IndividualChatView extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       position: PopupMenuPosition.under,
-      // offset: const Offset(30, 100),
-      onSelected: (value) {
-        print(value);
-      },
+      onSelected: (value) {},
       itemBuilder: (context) {
         return [
           PopupMenuItem(
@@ -125,17 +135,6 @@ class IndividualChatView extends StatelessWidget {
             value: "Media, links, and docs",
             child: Text(
               "Media, links, and docs",
-              style: TextStyle(
-                color: ConstColors.onPrimaryColor,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          PopupMenuItem(
-            value: "Whatsapp Web",
-            child: Text(
-              "Whatsapp Web",
               style: TextStyle(
                 color: ConstColors.onPrimaryColor,
                 fontSize: 12.sp,
@@ -194,9 +193,7 @@ class IndividualChatView extends StatelessWidget {
       ),
       offset: const Offset(-30, -300),
       position: PopupMenuPosition.over,
-      onSelected: (value) {
-        print(value);
-      },
+      onSelected: (value) {},
       itemBuilder: (context) {
         return [
           PopupMenuItem(
@@ -422,13 +419,7 @@ class IndividualChatView extends StatelessWidget {
             backgroundColor: ConstColors.primaryColor,
             child: Obx(
               () => IconButton(
-                onPressed: indChatVM.isSendVisible.value
-                    ? () {
-                        print('send');
-                      }
-                    : () {
-                        print('voice');
-                      },
+                onPressed: indChatVM.isSendVisible.value ? () {} : () {},
                 iconSize: 16.sp,
                 splashColor: ConstColors.onPrimaryColor.withOpacity(0.5),
                 splashRadius: 22,
@@ -450,11 +441,11 @@ class IndividualChatView extends StatelessWidget {
     );
   }
 
-  _buildPickEmoji() {
-    return EmojiPicker(
-      onEmojiSelected: (category, emoji) {
-        print(emoji);
-      },
-    );
-  }
+  // _buildPickEmoji() {
+  //   return EmojiPicker(
+  //     onEmojiSelected: (category, emoji) {
+  //       print(emoji);
+  //     },
+  //   );
+  // }
 }

@@ -7,4 +7,5 @@ class AuthVM extends GetxController {
   RxBool isCreateNew = false.obs;
   RxString name = ''.obs;
   RxString email = ''.obs;
+   User? user;
 }

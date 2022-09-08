@@ -22,9 +22,13 @@ class MessageWidget extends StatelessWidget {
             message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!message.isSender) ...[
-            const CircleAvatar(
-              radius: 18,
-              // backgroundImage: AssetImage(barimage),
+            CircleAvatar(
+              radius: 25,
+              child: Icon(
+                Icons.person,
+                size: 16.sp,
+              ),
+              //, backgroundImage: AssetImage(barimage),
             ),
           ],
           _messageContaint(message),
@@ -36,37 +40,42 @@ class MessageWidget extends StatelessWidget {
   Widget _messageContaint(ChateModel message) {
     switch (message.messageType) {
       case MessageType.text:
-        return Container(
-          constraints: BoxConstraints(
-            maxWidth: Get.width - 150,
-          ),
-          // width: Get.width - 250,
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: ConstColors.primaryColor,
-              borderRadius: message.isSender
-                  ? const BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                    )
-                  : const BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                    )),
-          child: Text(
-            message.message,
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: ConstColors.onPrimaryColor,
-            ),
-            softWrap: true,
-          ),
-        );
+        return _buildTextMessage(message);
+      case MessageType.image:
+        // return  _buildTextMessage(message);
+        return const SizedBox();
 
       default:
         return const SizedBox();
     }
+  }
+
+  Container _buildTextMessage(ChateModel message) {
+    return Container(
+      constraints: BoxConstraints(maxWidth: Get.width - 150),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: ConstColors.primaryColor,
+          borderRadius: message.isSender
+              ? const BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                )
+              : const BorderRadius.only(
+                  topRight: Radius.circular(30),
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                )),
+      child: Text(
+        message.message,
+        textAlign: TextAlign.justify,
+        style: TextStyle(
+          fontSize: 12.sp,
+          color: ConstColors.onPrimaryColor,
+        ),
+        softWrap: true,
+      ),
+    );
   }
 }
