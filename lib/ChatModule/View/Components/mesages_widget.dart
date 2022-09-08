@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:high_five/IndividualChatModule/Model/inbox_model.dart';
+import 'package:high_five/ChatModule/Model/chat_model.dart';
 import 'package:high_five/Responsive/responsive.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 

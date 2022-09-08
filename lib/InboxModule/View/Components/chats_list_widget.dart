@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:high_five/HomeModule/Model/home_model.dart';
-import 'package:high_five/IndividualChatModule/View/individual_chat_view.dart';
+import 'package:high_five/ChatModule/View/chat_view.dart';
+import 'package:high_five/InboxModule/Model/inbox_model.dart';
 import 'package:high_five/Responsive/responsive.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
@@ -15,13 +15,13 @@ class ChatsListWidget extends StatelessWidget {
 
   final List<InboxModel> inboxList = <InboxModel>[
     InboxModel(
-        image:
-            'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-        name: 'No Name',
-        lastText: 'This is last Text',
-        unreadText: 2,
-        time: DateTime.parse('2022-07-20 20:18:04'),
-        messageStatus: MessageStatus.notRecieverd),
+      image:
+          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
+      name: 'No Name',
+      lastText: 'This is last Text',
+      unreadText: 2,
+      time: DateTime.parse('2022-07-20 20:18:04'),
+    ),
     InboxModel(
       image:
           'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
@@ -29,7 +29,6 @@ class ChatsListWidget extends StatelessWidget {
       lastText: 'This is last Text',
       unreadText: 0,
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.notSceen,
     ),
     InboxModel(
       image:
@@ -38,7 +37,6 @@ class ChatsListWidget extends StatelessWidget {
       lastText: 'This is last Text',
       unreadText: 1,
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.notSent,
     ),
     InboxModel(
       image:
@@ -47,7 +45,6 @@ class ChatsListWidget extends StatelessWidget {
       unreadText: 0,
       lastText: 'This is last Text',
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.sceen,
     ),
     InboxModel(
       image:
@@ -56,7 +53,6 @@ class ChatsListWidget extends StatelessWidget {
       unreadText: 0,
       lastText: 'This is last Text',
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.sceen,
     ),
     InboxModel(
       image:
@@ -65,7 +61,6 @@ class ChatsListWidget extends StatelessWidget {
       unreadText: 0,
       lastText: 'This is last Text',
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.sceen,
     ),
     InboxModel(
       image:
@@ -74,7 +69,6 @@ class ChatsListWidget extends StatelessWidget {
       unreadText: 0,
       lastText: 'This is last Text',
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.sceen,
     ),
     InboxModel(
       image:
@@ -83,7 +77,6 @@ class ChatsListWidget extends StatelessWidget {
       unreadText: 0,
       lastText: 'This is last Text',
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.sceen,
     ),
     InboxModel(
       image:
@@ -92,7 +85,6 @@ class ChatsListWidget extends StatelessWidget {
       unreadText: 0,
       lastText: 'This is last Text',
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.sceen,
     ),
     InboxModel(
       image:
@@ -101,7 +93,6 @@ class ChatsListWidget extends StatelessWidget {
       lastText: 'This is last Text',
       unreadText: 2,
       time: DateTime.parse('2022-09-05 13:12:04'),
-      messageStatus: MessageStatus.sceen,
     ),
     InboxModel(
       image:
@@ -110,7 +101,6 @@ class ChatsListWidget extends StatelessWidget {
       lastText: 'This is last Text',
       unreadText: 10,
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.notSceen,
     ),
     InboxModel(
       image:
@@ -119,7 +109,6 @@ class ChatsListWidget extends StatelessWidget {
       lastText: 'This is last Text',
       unreadText: 25,
       time: DateTime.parse('2022-07-20 20:18:04'),
-      messageStatus: MessageStatus.notRecieverd,
     ),
   ];
 
@@ -154,25 +143,28 @@ class ChatsListWidget extends StatelessWidget {
         ),
         subtitle: Row(
           children: [
-            Container(
-              height: 10,
-              width: 10,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: inboxList[index].messageStatus == MessageStatus.notSent
-                    ? Colors.red
-                    : inboxList[index].messageStatus ==
-                            MessageStatus.notRecieverd
-                        ? Colors.red[300]
-                        : inboxList[index].messageStatus ==
-                                MessageStatus.notSceen
-                            ? Colors.greenAccent
-                            : Colors.green,
-              ),
-            ),
+            //TODO: Message status
+            // Container(
+            //   height: 10,
+            //   width: 10,
+            //   decoration: BoxDecoration(
+            //     shape: BoxShape.circle,
+            //     color: inboxList[index].messageStatus == MessageStatus.notSent
+            //         ? Colors.red
+            //         : inboxList[index].messageStatus ==
+            //                 MessageStatus.notRecieverd
+            //             ? Colors.red[300]
+            //             : inboxList[index].messageStatus ==
+            //                     MessageStatus.notSceen
+            //                 ? Colors.greenAccent
+            //                 : Colors.green,
+            //   ),
+            // ),
             const ResponsiveSizedBox.horizontal(6),
             Text(
-              inboxList[index].lastText,
+              inboxList[index].lastText == null
+                  ? inboxList[index].lastText!
+                  : '',
               style: TextStyle(
                 fontSize: 10.sp,
                 color: ConstColors.onSecondryColor,
@@ -181,7 +173,9 @@ class ChatsListWidget extends StatelessWidget {
           ],
         ),
         trailing: Text(
-          '${inboxList[index].time.hour.toString()}:${inboxList[index].time.minute.toString()}',
+          inboxList[index].time == null
+              ? '${inboxList[index].time!.hour.toString()}:${inboxList[index].time!.minute.toString()}'
+              : '',
           style: TextStyle(
             fontSize: 12.sp,
             color: ConstColors.onSecondryColor,

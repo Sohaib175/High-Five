@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:high_five/AuthModule/Services/firestore_service.dart';
-import 'package:high_five/AuthModule/Services/google_signin_service.dart';
 import 'package:high_five/AuthModule/View/Components/auth_input_field.dart';
 import 'package:high_five/AuthModule/View/Components/loginbg.dart';
 import 'package:high_five/AuthModule/ViewModel/auth_vm.dart';
-import 'package:high_five/HomeModule/View/home_view.dart';
+import 'package:high_five/InboxModule/View/inbox_view.dart';
 import 'package:high_five/Responsive/responsive.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
@@ -235,7 +233,7 @@ class LoginView extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Get.offAll(
-                    () => HomeView(),
+                    () => ChatView(),
                     transition: Transition.rightToLeft,
                     duration: const Duration(
                       milliseconds: 300,
@@ -326,7 +324,7 @@ class LoginView extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Get.offAll(
-                    () => HomeView(),
+                    () => ChatView(),
                     transition: Transition.rightToLeft,
                     duration: const Duration(
                       milliseconds: 300,
@@ -370,14 +368,13 @@ class LoginView extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () async {
-          await authVM.signInWithGoogle();
-          // User? user =
+          // authVM.signOutGoogle;
           // await authVM.signInWithGoogle();
-          // if (authVM.user != null) {
-          //   await FirestoreServices(authVM.user!).savesData();
-          // }
+          // User? user =
+          await authVM.signInWithGoogle();
+
           Get.off(
-            () => HomeView(),
+            () => ChatView(),
             transition: Transition.rightToLeft,
             duration: const Duration(
               milliseconds: 300,

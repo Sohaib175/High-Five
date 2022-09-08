@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class IndChatVM extends GetxController {
+class ChatVM extends GetxController {
   var isEmojiVisible = false.obs;
   RxBool isSendVisible = false.obs;
   FocusNode inpuFieldFocusNode = FocusNode();

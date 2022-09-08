@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:high_five/AuthModule/Services/google_signin_service.dart';
 import 'package:high_five/AuthModule/View/login_view.dart';
-import 'package:high_five/AuthModule/ViewModel/auth_vm.dart';
-import 'package:high_five/HomeModule/View/Components/chats_list_widget.dart';
-import 'package:high_five/HomeModule/ViewModel/home_vm.dart';
+import 'package:high_five/InboxModule/View/Components/chats_list_widget.dart';
+import 'package:high_five/InboxModule/ViewModel/inbox_vm.dart';
 import 'package:high_five/Responsive/responsive.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
-class HomeView extends StatelessWidget {
-  HomeView({Key? key}) : super(key: key);
-  final HomeVM homeVM = Get.put(HomeVM());
-  final AuthVM authVM = Get.find();
+class ChatView extends StatelessWidget {
+  ChatView({Key? key}) : super(key: key);
+  final InboxVm _inboxVM = Get.put(InboxVm());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -50,14 +47,18 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextField(
-                      controller: homeVM.emailCtrl,
+                      controller: _inboxVM.emailCtrl,
                       style: TextStyle(
                         color: ConstColors.onPrimaryColor,
                         fontSize: 14.sp,
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await _inboxVM.createInbox();
+                        // createInboxService(
+                        //     email: 'chaudharysohaib175@gmail.com');
+                      },
                       child: Text(
                         'Add New',
                         style: TextStyle(
@@ -108,7 +109,7 @@ class HomeView extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 20.sp,
                   backgroundImage: NetworkImage(
-                    authVM.userModel.profileImage ??
+                    _inboxVM.userModel.profileImage ??
                         'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                   ),
                 ),
@@ -120,7 +121,7 @@ class HomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  authVM.userModel.name,
+                  _inboxVM.userModel.name,
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
@@ -128,7 +129,7 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  authVM.userModel.email,
+                  _inboxVM.userModel.email,
                   style: TextStyle(
                     fontSize: 12.sp,
                     color: ConstColors.onPrimaryColor,
@@ -172,19 +173,19 @@ class HomeView extends StatelessWidget {
                   CircleAvatar(
                     radius: Get.width * 0.25,
                     backgroundImage: NetworkImage(
-                      authVM.userModel.profileImage ??
+                      _inboxVM.userModel.profileImage ??
                           'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                     ),
                   ),
                   const ResponsiveSizedBox.vertical(10),
                   Text(
-                    authVM.userModel.name,
+                    _inboxVM.userModel.name,
                     style:
                         TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ),
                   const ResponsiveSizedBox.vertical(10),
                   Text(
-                    authVM.userModel.email,
+                    _inboxVM.userModel.email,
                     style: TextStyle(fontSize: 12.sp),
                   ),
                 ],
@@ -219,7 +220,7 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                       onPressed: () async {
-                        await GoogleSignInServices().signOut();
+                        await _inboxVM.signOutGoogle();
                         Get.offAll(() => LoginView());
                       },
                     ),

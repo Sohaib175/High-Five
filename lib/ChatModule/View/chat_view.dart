@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:high_five/IndividualChatModule/Model/inbox_model.dart';
-import 'package:high_five/IndividualChatModule/View/Components/mesages_widget.dart';
-import 'package:high_five/IndividualChatModule/ViewModel/ind_chat_vm.dart';
+import 'package:high_five/ChatModule/Model/chat_model.dart';
+import 'package:high_five/ChatModule/View/Components/mesages_widget.dart';
+import 'package:high_five/ChatModule/ViewModel/chat_vm.dart';
 import 'package:high_five/Responsive/responsive.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
@@ -12,7 +12,7 @@ class IndividualChatView extends StatelessWidget {
     required this.imageURL,
     required this.name,
   }) : super(key: key);
-  final IndChatVM indChatVM = Get.put(IndChatVM());
+  final ChatVM chatVM = Get.put(ChatVM());
   final String imageURL;
   final String name;
   final FocusNode focusNode = FocusNode();
@@ -348,7 +348,7 @@ class IndividualChatView extends StatelessWidget {
                     maxLines: 5,
                     minLines: 1,
                     // focusNode: indChatVM.inpuFieldFocusNode,
-                    controller: indChatVM.textEditingController,
+                    controller: chatVM.textEditingController,
                     keyboardType: TextInputType.multiline,
                     style: TextStyle(
                       fontSize: 12.sp,
@@ -385,7 +385,7 @@ class IndividualChatView extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             _buildPopMenuAttachement(),
-                            indChatVM.isSendVisible.value
+                            chatVM.isSendVisible.value
                                 ? const SizedBox.shrink()
                                 : IconButton(
                                     onPressed: () {},
@@ -403,9 +403,9 @@ class IndividualChatView extends StatelessWidget {
                     ),
                     onChanged: (value) {
                       if (value.isNotEmpty) {
-                        indChatVM.isSendVisible.value = true;
+                        chatVM.isSendVisible.value = true;
                       } else {
-                        indChatVM.isSendVisible.value = false;
+                        chatVM.isSendVisible.value = false;
                       }
                     },
                   ),
@@ -419,11 +419,11 @@ class IndividualChatView extends StatelessWidget {
             backgroundColor: ConstColors.primaryColor,
             child: Obx(
               () => IconButton(
-                onPressed: indChatVM.isSendVisible.value ? () {} : () {},
+                onPressed: chatVM.isSendVisible.value ? () {} : () {},
                 iconSize: 16.sp,
                 splashColor: ConstColors.onPrimaryColor.withOpacity(0.5),
                 splashRadius: 22,
-                icon: indChatVM.isSendVisible.value
+                icon: chatVM.isSendVisible.value
                     ? Icon(
                         Icons.send,
                         color: ConstColors.onPrimaryColor,
