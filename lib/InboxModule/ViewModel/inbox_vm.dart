@@ -9,7 +9,7 @@ import 'package:high_five/InboxModule/Services/inbox_service.dart';
 class InboxVm extends GetxController {
   final InboxServices inboxServices = InboxServices();
   Rx<InboxModel> inboxModel = InboxModel(image: '', name: '').obs;
-  UserModel userModel = AuthVM.userModel;
+  UserModel currentUserModel = AuthVM.currentUserModel;
   final TextEditingController emailCtrl = TextEditingController();
   // inboxServices.
 
@@ -17,9 +17,22 @@ class InboxVm extends GetxController {
     GoogleSignInServices.signOut();
   }
 
-  createInbox() async {
-    Future<bool> ch = (await inboxServices.createInboxService(
-        emailCtrl.text, userModel)) as Future<bool>;
-    print(ch);
+  addNewOnTap(String email) async {
+    emailCtrl.clear();
+    Get.back();
+    await inboxServices.newChatService(
+        email: email, usermodel: currentUserModel);
   }
+
+  // addNewFriend(email) async {
+  //   // var newFriend = await inboxServices.getNewFriendData(email);
+  //   // print(newFriend.toString());
+  //   // if (newFriend.toString() != 'false') {
+  //   // );
+  // }
 }
+
+  // createInbox() async {
+  //   await inboxServices.createInboxService(newFriendModel: newFriendModel, usermodel: usermodel);
+  // }
+

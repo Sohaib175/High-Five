@@ -11,7 +11,7 @@ class LoginView extends StatelessWidget {
   LoginView({
     Key? key,
   }) : super(key: key);
-  final AuthVM authVM = Get.put(AuthVM());
+  final AuthVM authVM = Get.find();
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -233,7 +233,7 @@ class LoginView extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Get.offAll(
-                    () => ChatView(),
+                    () => InboxView(),
                     transition: Transition.rightToLeft,
                     duration: const Duration(
                       milliseconds: 300,
@@ -324,7 +324,7 @@ class LoginView extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Get.offAll(
-                    () => ChatView(),
+                    () => InboxView(),
                     transition: Transition.rightToLeft,
                     duration: const Duration(
                       milliseconds: 300,
@@ -374,7 +374,7 @@ class LoginView extends StatelessWidget {
           await authVM.signInWithGoogle();
 
           Get.off(
-            () => ChatView(),
+            () => InboxView(),
             transition: Transition.rightToLeft,
             duration: const Duration(
               milliseconds: 300,

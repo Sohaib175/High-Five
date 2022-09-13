@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:high_five/AuthModule/View/login_view.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:high_five/Responsive/screenutil_init.dart';
+import 'package:high_five/SplashModule/view/splash_view.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
 Future<void> main() async {
+  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
             secondaryHeaderColor: ConstColors.onPrimaryColor),
         debugShowCheckedModeBanner: false,
         title: 'High Five',
-        home: LoginView(),
+        home: const SplashView(),
       ),
     );
   }

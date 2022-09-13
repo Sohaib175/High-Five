@@ -70,8 +70,8 @@ class GoogleSignInServices {
     try {
       print('Loging Out');
       // await FirebaseAuth.instance.signOut();
-      await GoogleSignIn().signOut();
-      // await googleSignIn.disconnect();
+      await googleSignIn.signOut();
+      await googleSignIn.disconnect();
     } catch (e) {
       print('Error while signing Out $e');
       // TODO: Error Signing out

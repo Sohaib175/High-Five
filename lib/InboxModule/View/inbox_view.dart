@@ -6,8 +6,8 @@ import 'package:high_five/InboxModule/ViewModel/inbox_vm.dart';
 import 'package:high_five/Responsive/responsive.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
-class ChatView extends StatelessWidget {
-  ChatView({Key? key}) : super(key: key);
+class InboxView extends StatelessWidget {
+  InboxView({Key? key}) : super(key: key);
   final InboxVm _inboxVM = Get.put(InboxVm());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -55,7 +55,7 @@ class ChatView extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () async {
-                        await _inboxVM.createInbox();
+                        await _inboxVM.addNewOnTap(_inboxVM.emailCtrl.text);
                         // createInboxService(
                         //     email: 'chaudharysohaib175@gmail.com');
                       },
@@ -109,7 +109,7 @@ class ChatView extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 20.sp,
                   backgroundImage: NetworkImage(
-                    _inboxVM.userModel.profileImage ??
+                    _inboxVM.currentUserModel.profileImage ??
                         'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                   ),
                 ),
@@ -121,7 +121,7 @@ class ChatView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  _inboxVM.userModel.name,
+                  _inboxVM.currentUserModel.name,
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
@@ -129,7 +129,7 @@ class ChatView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  _inboxVM.userModel.email,
+                  _inboxVM.currentUserModel.email,
                   style: TextStyle(
                     fontSize: 12.sp,
                     color: ConstColors.onPrimaryColor,
@@ -173,19 +173,19 @@ class ChatView extends StatelessWidget {
                   CircleAvatar(
                     radius: Get.width * 0.25,
                     backgroundImage: NetworkImage(
-                      _inboxVM.userModel.profileImage ??
+                      _inboxVM.currentUserModel.profileImage ??
                           'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                     ),
                   ),
                   const ResponsiveSizedBox.vertical(10),
                   Text(
-                    _inboxVM.userModel.name,
+                    _inboxVM.currentUserModel.name,
                     style:
                         TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ),
                   const ResponsiveSizedBox.vertical(10),
                   Text(
-                    _inboxVM.userModel.email,
+                    _inboxVM.currentUserModel.email,
                     style: TextStyle(fontSize: 12.sp),
                   ),
                 ],
