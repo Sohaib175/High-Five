@@ -6,25 +6,21 @@ import 'package:high_five/AuthModule/Services/firestore_service.dart';
 import 'package:high_five/AuthModule/Services/google_signin_service.dart';
 
 class AuthVM extends GetxController {
-  // final GoogleSignInServices _googleSignInServices = GoogleSignInServices();
-  // SplashVM splashVM = SplashVM();
   GetStorage getStorage = GetStorage();
   final FirestoreServices _firestoreServices = FirestoreServices();
   RxBool isCreateNew = false.obs;
 
-  static late UserModel currentUserModel;
-
+  static late UserModel userModel;
   signInWithGoogle() async {
     User? user = await GoogleSignInServices.signInWithGoogle();
-    currentUserModel = UserModel(
+    userModel = UserModel(
       userId: user!.uid,
       name: user.displayName!,
       email: user.email!,
       profileImage: user.photoURL!,
     );
-    await getStorage.write('userId', currentUserModel.userId);
-    await _firestoreServices.savesData(currentUserModel);
-    print(getStorage.read('userId'));
+    await getStorage.write('userId', userModel.userId);
+    await _firestoreServices.saveDataFirebase(userModel);
   }
 
   signOutGoogle() async {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import "package:get/get.dart";
-import 'package:high_five/Responsive/responsive.dart';
 
 class InputField extends StatelessWidget {
   final double width;
@@ -46,14 +45,14 @@ class InputField extends StatelessWidget {
                 obscureText: isPassVisibility.value,
                 controller: textEditingController,
                 style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: textColor),
                 decoration: InputDecoration(
                   isDense: isDense,
                   labelText: labelText,
                   labelStyle: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: labelColor),
                   suffixIcon: IconButton(
@@ -100,19 +99,19 @@ class InputField extends StatelessWidget {
             ? TextFormField(
                 controller: textEditingController,
                 style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: textColor),
                 decoration: InputDecoration(
                   isDense: isDense,
                   labelText: labelText,
                   labelStyle: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: labelColor,
                   ),
                   suffixIcon: Padding(
-                    padding: REdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: ImageIcon(
                       AssetImage(suffixPath!),
                       color: iconColor,
@@ -144,14 +143,14 @@ class InputField extends StatelessWidget {
             : TextFormField(
                 controller: textEditingController,
                 style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: textColor),
                 decoration: InputDecoration(
                   isDense: isDense,
                   labelText: labelText,
                   labelStyle: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: labelColor),
                   border: const OutlineInputBorder(

@@ -1,21 +1,25 @@
-import 'dart:async';
-
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:high_five/AuthModule/Services/firestore_service.dart';
 import 'package:high_five/AuthModule/View/login_view.dart';
 import 'package:high_five/AuthModule/ViewModel/auth_vm.dart';
 import 'package:high_five/InboxModule/View/inbox_view.dart';
 
 class SplashVM extends GetxController {
   final AuthVM authVM = Get.put(AuthVM(), permanent: true);
-  final getStorge = GetStorage();
+  final FirestoreServices _firestoreServices = FirestoreServices();
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
+    final String localuserId = await authVM.getStorage.read('userId');
 
-    if (getStorge.read("userId") != null) {
-      Future.delayed(const Duration(milliseconds: 3000), () {
+    if (localuserId.isNotEmpty) {
+      Future.delayed(const Duration(seconds: 2), () async {
+        var userD = await _firestoreServices.getFirebaseData(localuserId);
+        if (userD != null) {
+          AuthVM.userModel = userD;
+        }
+        // authVM.getData();
         Get.offAll(() => InboxView());
       });
     } else {
@@ -23,24 +27,3 @@ class SplashVM extends GetxController {
     }
   }
 }
-
-// class SplashBinding extends Bindings {
-//   @override
-//   void dependencies() {
-//     Get.put<SplashVM>(
-//       SplashVM(),
-//     );
-//     //   if (getStorge.read("id") != null) {
-//     //     Future.delayed(const Duration(milliseconds: 3000), () {
-//     //       Get.offAll(() => LoginView());
-//     //     });
-//     //   } else {
-//     // Timer(
-//     //   const Duration(seconds: 3),
-//     //   () => Get.off(
-//     //     LoginView(),
-//     //   ),
-//     // );
-//     //   }
-//   }
-// }

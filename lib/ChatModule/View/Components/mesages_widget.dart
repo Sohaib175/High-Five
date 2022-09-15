@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:high_five/ChatModule/Model/chat_model.dart';
-import 'package:high_five/Responsive/responsive.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
 // import 'custom_messages.dart';
@@ -22,11 +21,11 @@ class MessageWidget extends StatelessWidget {
             message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!message.isSender) ...[
-            CircleAvatar(
+            const CircleAvatar(
               radius: 25,
               child: Icon(
                 Icons.person,
-                size: 16.sp,
+                size: 16,
               ),
               //, backgroundImage: AssetImage(barimage),
             ),
@@ -71,7 +70,7 @@ class MessageWidget extends StatelessWidget {
         message.message,
         textAlign: TextAlign.justify,
         style: TextStyle(
-          fontSize: 12.sp,
+          fontSize: 12,
           color: ConstColors.onPrimaryColor,
         ),
         softWrap: true,

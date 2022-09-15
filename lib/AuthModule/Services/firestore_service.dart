@@ -2,27 +2,48 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:high_five/AuthModule/Model/user_model.dart';
 
 class FirestoreServices {
-  FirestoreServices();
-  savesData(UserModel user) async {
-    Map<String, dynamic> data = {
-      "name": user.name,
-      "email": user.email,
-      "profileImage": user.profileImage,
-      "uid": user.userId,
-    };
+  // FirestoreServices();
 
-    DocumentSnapshot userExist = await FirebaseFirestore.instance
-        .collection("user")
-        .doc(user.userId)
-        .get();
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+  saveDataFirebase(UserModel userModel) async {
+    Map<String, dynamic> data = {
+      "name": userModel.name,
+      "email": userModel.email,
+      "profileImage": userModel.profileImage,
+      "userId": userModel.userId,
+    };
+    DocumentSnapshot userExist =
+        await firebaseFirestore.collection("user").doc(userModel.userId).get();
 
     if (userExist.exists) {
       return;
     } else {
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(user.userId)
+          .doc(userModel.userId)
           .set(data);
+    }
+  }
+
+  getFirebaseData(String userId) async {
+    QuerySnapshot querySnapshot = await firebaseFirestore
+        .collection("users")
+        .where("userId", isEqualTo: userId)
+        .get();
+    if (querySnapshot.docs.isNotEmpty) {
+      // print('find');
+      DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+
+      return UserModel(
+        email: documentSnapshot.get('email'),
+        name: documentSnapshot.get('name'),
+        userId: documentSnapshot.get('userId'),
+        profileImage: documentSnapshot.get('profileImage'),
+      );
+    } else {
+      return;
+      print('not find');
     }
   }
 }

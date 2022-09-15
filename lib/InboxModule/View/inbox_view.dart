@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:high_five/AuthModule/Model/user_model.dart';
 import 'package:high_five/AuthModule/View/login_view.dart';
 import 'package:high_five/InboxModule/View/Components/chats_list_widget.dart';
 import 'package:high_five/InboxModule/ViewModel/inbox_vm.dart';
-import 'package:high_five/Responsive/responsive.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
 class InboxView extends StatelessWidget {
@@ -50,19 +50,17 @@ class InboxView extends StatelessWidget {
                       controller: _inboxVM.emailCtrl,
                       style: TextStyle(
                         color: ConstColors.onPrimaryColor,
-                        fontSize: 14.sp,
+                        fontSize: 14,
                       ),
                     ),
                     TextButton(
                       onPressed: () async {
-                        await _inboxVM.addNewOnTap(_inboxVM.emailCtrl.text);
-                        // createInboxService(
-                        //     email: 'chaudharysohaib175@gmail.com');
+                        await _inboxVM.addNewChatOnTap(_inboxVM.emailCtrl.text);
                       },
                       child: Text(
                         'Add New',
                         style: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: ConstColors.onPrimaryColor),
                       ),
@@ -74,12 +72,12 @@ class InboxView extends StatelessWidget {
           },
           child: Icon(
             Icons.add,
-            size: 16.sp,
+            size: 16,
           ),
         ),
 
-        body: ResponsivePadding(
-          padding: REdgeInsets.symmetric(
+        body: Padding(
+          padding: EdgeInsets.symmetric(
             vertical: 20,
             horizontal: 10,
           ),
@@ -107,9 +105,9 @@ class InboxView extends StatelessWidget {
                   horizontal: 20,
                 ),
                 child: CircleAvatar(
-                  radius: 20.sp,
+                  radius: 20,
                   backgroundImage: NetworkImage(
-                    _inboxVM.currentUserModel.profileImage ??
+                    _inboxVM.userModel.profileImage ??
                         'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                   ),
                 ),
@@ -121,17 +119,17 @@ class InboxView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  _inboxVM.currentUserModel.name,
+                  _inboxVM.userModel.name,
                   style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: ConstColors.onPrimaryColor,
                   ),
                 ),
                 Text(
-                  _inboxVM.currentUserModel.email,
+                  _inboxVM.userModel.email,
                   style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     color: ConstColors.onPrimaryColor,
                   ),
                 ),
@@ -173,20 +171,19 @@ class InboxView extends StatelessWidget {
                   CircleAvatar(
                     radius: Get.width * 0.25,
                     backgroundImage: NetworkImage(
-                      _inboxVM.currentUserModel.profileImage ??
+                      _inboxVM.userModel.profileImage ??
                           'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                     ),
                   ),
-                  const ResponsiveSizedBox.vertical(10),
+                  const SizedBox(height: 10),
                   Text(
-                    _inboxVM.currentUserModel.name,
-                    style:
-                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    _inboxVM.userModel.name,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
-                  const ResponsiveSizedBox.vertical(10),
+                  const SizedBox(height: 10),
                   Text(
-                    _inboxVM.currentUserModel.email,
-                    style: TextStyle(fontSize: 12.sp),
+                    _inboxVM.userModel.email,
+                    style: TextStyle(fontSize: 12),
                   ),
                 ],
               ),
@@ -197,7 +194,7 @@ class InboxView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
-                    height: 40.sp,
+                    height: 40,
                     width: Get.width * 0.7,
                     child: ElevatedButton(
                       style: ButtonStyle(
@@ -214,7 +211,7 @@ class InboxView extends StatelessWidget {
                       child: Text(
                         'LogOut',
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: ConstColors.onPrimaryColor,
                         ),

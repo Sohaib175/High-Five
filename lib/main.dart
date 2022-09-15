@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:high_five/Responsive/screenutil_init.dart';
+import 'package:high_five/AuthModule/View/login_view.dart';
 import 'package:high_five/SplashModule/view/splash_view.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
@@ -18,15 +18,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      builder: (context, child) => GetMaterialApp(
-        theme: ThemeData(
-            primaryColor: ConstColors.onPrimaryColor,
-            secondaryHeaderColor: ConstColors.onPrimaryColor),
-        debugShowCheckedModeBanner: false,
-        title: 'High Five',
-        home: const SplashView(),
-      ),
+    return GetMaterialApp(
+      theme: ThemeData(
+          primaryColor: ConstColors.onPrimaryColor,
+          secondaryHeaderColor: ConstColors.onPrimaryColor),
+      debugShowCheckedModeBanner: false,
+      title: 'High Five',
+      home: LoginView(),
     );
   }
 }

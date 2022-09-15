@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:high_five/InboxModule/View/inbox_view.dart';
 import 'package:high_five/SplashModule/ViewModel/splash_vm.dart';
 
-// import '../View Model/splash_screen_vm.dart';
-
-class SplashView extends GetView<SplashVM> {
-  const SplashView({Key? key}) : super(key: key);
-
+class SplashView extends StatelessWidget {
+  SplashView({Key? key}) : super(key: key);
+  final SplashVM splashVM = Get.put(SplashVM());
   @override
   Widget build(BuildContext context) {
-    Get.put(SplashVM());
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -54,14 +52,19 @@ class SplashView extends GetView<SplashVM> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "Splash Screen",
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                ElevatedButton(
+                    onPressed: () {
+                      Get.to(InboxView());
+                    },
+                    child: const Text('data'))
                 // Image(image: AssetImage("assets/Images/logo.png"))
               ],
             ),

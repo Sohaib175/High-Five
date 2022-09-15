@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:high_five/ChatModule/View/chat_view.dart';
 import 'package:high_five/InboxModule/Model/inbox_model.dart';
-import 'package:high_five/Responsive/responsive.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
 class ChatsListWidget extends StatelessWidget {
@@ -136,7 +135,7 @@ class ChatsListWidget extends StatelessWidget {
         title: Text(
           inboxList[index].name,
           style: TextStyle(
-            fontSize: 12.sp,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
             color: ConstColors.onSecondryColor,
           ),
@@ -160,13 +159,13 @@ class ChatsListWidget extends StatelessWidget {
             //                 : Colors.green,
             //   ),
             // ),
-            const ResponsiveSizedBox.horizontal(6),
+            const SizedBox(width: 10),
             Text(
               inboxList[index].lastText == null
                   ? inboxList[index].lastText!
                   : '',
               style: TextStyle(
-                fontSize: 10.sp,
+                fontSize: 10,
                 color: ConstColors.onSecondryColor,
               ),
             ),
@@ -177,7 +176,7 @@ class ChatsListWidget extends StatelessWidget {
               ? '${inboxList[index].time!.hour.toString()}:${inboxList[index].time!.minute.toString()}'
               : '',
           style: TextStyle(
-            fontSize: 12.sp,
+            fontSize: 12,
             color: ConstColors.onSecondryColor,
           ),
         ),
