@@ -6,10 +6,24 @@ import 'package:high_five/InboxModule/View/Components/inbox_tiles_widget.dart';
 import 'package:high_five/InboxModule/ViewModel/inbox_vm.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
-class InboxView extends StatelessWidget {
+class InboxView extends StatefulWidget {
   InboxView({Key? key}) : super(key: key);
-  final InboxVM _inboxVM = Get.put(InboxVM());
+
+  @override
+  State<InboxView> createState() => _InboxViewState();
+}
+
+class _InboxViewState extends State<InboxView> {
+  final InboxVM inboxVM = Get.put(InboxVM());
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    inboxVM.fetchMyInbox();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +76,9 @@ class InboxView extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 30,
                   backgroundImage: NetworkImage(
-                    _inboxVM.userModel.profileImage ??
-                        'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
+                    inboxVM.userModel.value.profileImage.isNotEmpty
+                        ? inboxVM.userModel.value.profileImage
+                        : 'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                   ),
                 ),
               ),
@@ -74,7 +89,7 @@ class InboxView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  _inboxVM.userModel.name,
+                  inboxVM.userModel.value.name,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -82,7 +97,7 @@ class InboxView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  _inboxVM.userModel.email,
+                  inboxVM.userModel.value.email,
                   style: TextStyle(
                     fontSize: 16,
                     color: ConstColors.onPrimaryColor,
@@ -119,19 +134,20 @@ class InboxView extends StatelessWidget {
                   CircleAvatar(
                     radius: Get.width * 0.25,
                     backgroundImage: NetworkImage(
-                      _inboxVM.userModel.profileImage ??
-                          'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
+                      inboxVM.userModel.value.profileImage.isNotEmpty
+                          ? inboxVM.userModel.value.profileImage
+                          : 'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
                     ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    _inboxVM.userModel.name,
+                    inboxVM.userModel.value.name,
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    _inboxVM.userModel.email,
+                    inboxVM.userModel.value.email,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],
@@ -166,7 +182,7 @@ class InboxView extends StatelessWidget {
                         ),
                       ),
                       onPressed: () async {
-                        await _inboxVM.signOutGoogle();
+                        await inboxVM.signOutGoogle();
                         Get.offAll(() => LoginView());
                       },
                     ),

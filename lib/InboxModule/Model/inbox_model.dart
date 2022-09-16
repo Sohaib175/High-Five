@@ -5,19 +5,27 @@
 //   sceen,
 // }
 
+import 'package:high_five/AuthModule/Model/user_model.dart';
+
 class InboxModel {
-  String name;
-  String image;
-  String? lastText;
-  int? unreadText;
-  DateTime? time;
+  String chatID;
+  UserModel userModel;
+
   // MessageStatus messageStatus;
   InboxModel({
-    required this.image,
-    required this.name,
-    this.lastText,
-    this.unreadText,
-    this.time,
+    required this.chatID,
+    required this.userModel,
     // required this.messageStatus,
   });
+
+  factory InboxModel.fromFirebase(dynamic data, String id, String myUID) {
+    return InboxModel(
+        chatID: id,
+        userModel: UserModel.fromJson(data["members"]
+            .values
+            .toList()
+            .where((e) => e["userId"] != myUID)
+            .toList()
+            .first));
+  }
 }

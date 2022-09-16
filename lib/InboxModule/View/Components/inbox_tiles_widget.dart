@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:high_five/ChatModule/View/chat_view.dart';
 import 'package:high_five/InboxModule/Model/inbox_model.dart';
+import 'package:high_five/InboxModule/ViewModel/inbox_vm.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
 class InboxTilesWidget extends StatelessWidget {
@@ -9,177 +10,83 @@ class InboxTilesWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final List<InboxModel> inboxList = <InboxModel>[
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      lastText: 'This is last Text',
-      unreadText: 2,
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      lastText: 'This is last Text',
-      unreadText: 0,
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      lastText: 'This is last Text',
-      unreadText: 1,
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      unreadText: 0,
-      lastText: 'This is last Text',
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      unreadText: 0,
-      lastText: 'This is last Text',
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      unreadText: 0,
-      lastText: 'This is last Text',
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      unreadText: 0,
-      lastText: 'This is last Text',
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      unreadText: 0,
-      lastText: 'This is last Text',
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      unreadText: 0,
-      lastText: 'This is last Text',
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'Sohaib',
-      lastText: 'This is last Text',
-      unreadText: 2,
-      time: DateTime.parse('2022-09-05 13:12:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      lastText: 'This is last Text',
-      unreadText: 10,
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-    InboxModel(
-      image:
-          'https://www.shareicon.net/data/512x512/2016/05/26/771198_man_512x512.png',
-      name: 'No Name',
-      lastText: 'This is last Text',
-      unreadText: 25,
-      time: DateTime.parse('2022-07-20 20:18:04'),
-    ),
-  ];
+  final InboxVM inboxVM = Get.put(InboxVM());
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: inboxList.length,
-      itemBuilder: (context, index) => ListTile(
-        onTap: () {
-          Get.to(
-            () => IndividualChatView(
-              imageURL: inboxList[index].image,
-              name: inboxList[index].name,
+    return Obx(() => ListView.separated(
+          itemCount: inboxVM.inboxList.length,
+          itemBuilder: (context, index) => ListTile(
+            onTap: () {
+              // Get.to(
+              //   () => IndividualChatView(
+              //     imageURL: inboxVM.inboxList[index].image,
+              //     name: inboxVM.inboxList[index].name,
+              //   ),
+              //   transition: Transition.rightToLeft,
+              //   duration: const Duration(
+              //     milliseconds: 300,
+              //   ),
+              // );
+            },
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage:
+                  NetworkImage(inboxVM.inboxList[index].userModel.profileImage),
             ),
-            transition: Transition.rightToLeft,
-            duration: const Duration(
-              milliseconds: 300,
-            ),
-          );
-        },
-        leading: CircleAvatar(
-          radius: 30,
-          backgroundImage: NetworkImage(inboxList[index].image),
-        ),
-        title: Text(
-          inboxList[index].name,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            color: ConstColors.onSecondryColor,
-          ),
-        ),
-        subtitle: Row(
-          children: [
-            //TODO: Message status Means Message sent or not
-
-            // Container(
-            //   height: 10,
-            //   width: 10,
-            //   decoration: BoxDecoration(
-            //     shape: BoxShape.circle,
-            //     color: inboxList[index].messageStatus == MessageStatus.notSent
-            //         ? Colors.red
-            //         : inboxList[index].messageStatus ==
-            //                 MessageStatus.notRecieverd
-            //             ? Colors.red[300]
-            //             : inboxList[index].messageStatus ==
-            //                     MessageStatus.notSceen
-            //                 ? Colors.greenAccent
-            //                 : Colors.green,
-            //   ),
-            // ),
-            // const SizedBox(width: 10),
-            Text(
-              inboxList[index].lastText != null
-                  ? inboxList[index].lastText!
-                  : '',
+            title: Text(
+              inboxVM.inboxList[index].userModel.name,
+              // inboxVM.inboxList[index].name,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
                 color: ConstColors.onSecondryColor,
               ),
             ),
-          ],
-        ),
-        trailing: Text(
-          inboxList[index].time != null
-              ? '${inboxList[index].time!.hour.toString()}:${inboxList[index].time!.minute.toString()}'
-              : '',
-          style: TextStyle(
-            fontSize: 16,
-            color: ConstColors.onSecondryColor,
+            // subtitle: Row(
+            //   children: [
+            //     //TODO: Message status Means Message sent or not
+            //
+            //     // Container(
+            //     //   height: 10,
+            //     //   width: 10,
+            //     //   decoration: BoxDecoration(
+            //     //     shape: BoxShape.circle,
+            //     //     color: inboxList[index].messageStatus == MessageStatus.notSent
+            //     //         ? Colors.red
+            //     //         : inboxList[index].messageStatus ==
+            //     //                 MessageStatus.notRecieverd
+            //     //             ? Colors.red[300]
+            //     //             : inboxList[index].messageStatus ==
+            //     //                     MessageStatus.notSceen
+            //     //                 ? Colors.greenAccent
+            //     //                 : Colors.green,
+            //     //   ),
+            //     // ),
+            //     // const SizedBox(width: 10),
+            //     Text(
+            //       inboxVM.inboxList[index].lastText != null
+            //           ? inboxVM.inboxList[index].lastText!
+            //           : '',
+            //       style: TextStyle(
+            //         fontSize: 16,
+            //         color: ConstColors.onSecondryColor,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // trailing: Text(
+            //   inboxVM.inboxList[index].time != null
+            //       ? '${inboxVM.inboxList[index].time!.hour.toString()}:${inboxVM.inboxList[index].time!.minute.toString()}'
+            //       : '',
+            //   style: TextStyle(
+            //     fontSize: 16,
+            //     color: ConstColors.onSecondryColor,
+            //   ),
+            // ),
           ),
-        ),
-      ),
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
-    );
+          separatorBuilder: (BuildContext context, int index) =>
+              const Divider(),
+        ));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:high_five/AuthModule/Model/user_model.dart';
+import 'package:high_five/InboxModule/Model/inbox_model.dart';
 
 class InboxServices {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -11,24 +12,63 @@ class InboxServices {
         .get();
     if (querySnapshot.docs.isNotEmpty) {
       DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
-      await firebaseFirestore
+      QuerySnapshot snapshot = await firebaseFirestore
           .collection("chat")
-          .doc(DateTime.now().millisecondsSinceEpoch.toString())
-          .set(
-        {
-          documentSnapshot.id: {
-            'email': documentSnapshot.get('email'),
-            'name': documentSnapshot.get('name'),
-            'profileImage': documentSnapshot.get('profileImage'),
+          .where("userIds.${usermodel.userId}", isEqualTo: true)
+          .where("userIds.${documentSnapshot.id}", isEqualTo: true)
+          .get();
+      if (snapshot.docs.isEmpty) {
+        await firebaseFirestore
+            .collection("chat")
+            .doc(DateTime.now().millisecondsSinceEpoch.toString())
+            .set(
+          {
+            "members": {
+              documentSnapshot.id: {
+                'id': documentSnapshot.id,
+                'email': documentSnapshot.get('email'),
+                'name': documentSnapshot.get('name'),
+                'profileImage': documentSnapshot.get('profileImage'),
+              },
+              usermodel.userId: {
+                'id': usermodel.userId,
+                'email': usermodel.email,
+                'name': usermodel.name,
+                'profileImage': usermodel.profileImage
+              },
+            },
+            "userIds": {usermodel.userId: true, documentSnapshot.id: true},
           },
-          usermodel.userId: {
-            'email': usermodel.email,
-            'name': usermodel.name,
-            'profileImage': usermodel.profileImage
-          },
-          "userIds": {usermodel.userId: true, documentSnapshot.id: true},
-        },
-      );
+        );
+      } else {
+        print("Already in Inbox");
+      }
+    } else {
+      print("No User FOund");
     }
+  }
+
+  Future<List<InboxModel>> fetchInboxService({required String myUserID}) async {
+    List<InboxModel> inboxData = [];
+    QuerySnapshot snapshot = await firebaseFirestore
+        .collection("chat")
+        .where("userIds.${myUserID}", isEqualTo: true)
+        .get();
+    print("chat inbox");
+    print(snapshot.docs.length);
+    if (snapshot.docs.isNotEmpty) {
+      for (int index = 0; index < snapshot.docs.length; index++) {
+        print("members");
+        print(snapshot.docs[index]["members"].keys.toList());
+        print(snapshot.docs[index]["members"].values
+            .toList()
+            .where((e) => e["userId"] != myUserID)
+            .toList()
+            .first);
+        inboxData.add(InboxModel.fromFirebase(
+            snapshot.docs[index].data(), snapshot.docs[index].id, myUserID));
+      }
+    }
+    return inboxData;
   }
 }

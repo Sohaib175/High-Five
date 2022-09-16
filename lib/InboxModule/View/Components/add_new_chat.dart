@@ -5,7 +5,9 @@ import 'package:high_five/utill/Constants/const_color.dart';
 
 class AddNewChatView extends StatelessWidget {
   AddNewChatView({Key? key}) : super(key: key);
-  final InboxVM _inboxVM = Get.find();
+
+  final InboxVM inboxVM = Get.put(InboxVM());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +30,7 @@ class AddNewChatView extends StatelessWidget {
           children: [
             const Spacer(),
             TextFormField(
-              controller: _inboxVM.emailCtrl,
+              controller: inboxVM.emailCtrl,
               style: TextStyle(
                 color: ConstColors.onPrimaryColor,
                 fontSize: 18,
@@ -43,7 +45,7 @@ class AddNewChatView extends StatelessWidget {
               width: Get.width,
               child: ElevatedButton(
                 onPressed: () async {
-                  await _inboxVM.addNewChatOnTap(_inboxVM.emailCtrl.text);
+                  await inboxVM.addNewChatOnTap();
                 },
                 style: ButtonStyle(
                   backgroundColor:

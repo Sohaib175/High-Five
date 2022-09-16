@@ -2,25 +2,28 @@ class UserModel {
   String userId;
   String name;
   String email;
-  String? profileImage;
+  String profileImage;
 
   UserModel({
     required this.userId,
     required this.name,
     required this.email,
-    this.profileImage,
+    required this.profileImage,
   });
 
-  // UserModel.fromJson(Map<String, dynamic> json) {
-  //   userId = json['id'];
-  //   name = json['name'];
-  // }
+  factory UserModel.fromJson(dynamic json) {
+    return UserModel(
+        userId: json["id"],
+        name: json["name"],
+        email: json["email"],
+        profileImage: json["profileImage"]);
+  }
 
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = <String, dynamic>{};
-  //   data['name'] = name;
-  //   return data;
-  // }
+// Map<String, dynamic> toJson() {
+//   final Map<String, dynamic> data = <String, dynamic>{};
+//   data['name'] = name;
+//   return data;
+// }
 // saveData() async {
 //     Map<String, dynamic> data = {
 //       "name": "ALI",

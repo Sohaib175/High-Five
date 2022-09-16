@@ -6,23 +6,29 @@ import 'package:high_five/AuthModule/Services/google_signin_service.dart';
 import 'package:high_five/utill/get_storage_handler.dart';
 
 class AuthVM extends GetxController {
-  // GetStorage getStorage = GetStorage();
   final GoogleSignInServices googleSignInServices = GoogleSignInServices();
   final FirestoreServices firestoreServices = FirestoreServices();
   final GetStorageHandler getStorageHandler = GetStorageHandler();
   RxBool isCreateNew = false.obs;
 
-  static late UserModel userModel;
+  ///Todo: Have to remove this variable
+  static UserModel userModel =
+      UserModel(userId: "", name: "", email: "", profileImage: "");
+  Rx<UserModel> userInfo =
+      UserModel(userId: "", name: "", email: "", profileImage: "").obs;
+
   signInWithGoogle() async {
-    User? user = await googleSignInServices.signInWithGoogle();
-    userModel = UserModel(
-      userId: user!.uid,
-      name: user.displayName!,
-      email: user.email!,
-      profileImage: user.photoURL!,
-    );
-    getStorageHandler.setLocaleId(userModel.userId);
-    await firestoreServices.saveDataFirebase(userModel);
+    var user = await googleSignInServices.signInWithGoogle();
+    if (user != null) {
+      userInfo.value = UserModel(
+        userId: user.uid,
+        name: user.displayName!,
+        email: user.email!,
+        profileImage: user.photoURL!,
+      );
+      await getStorageHandler.setUserId(userInfo.value.userId);
+      await firestoreServices.saveDataFirebase(userInfo.value);
+    }
   }
 
   signOutGoogle() async {

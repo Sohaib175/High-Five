@@ -3,16 +3,16 @@ import 'package:get_storage/get_storage.dart';
 class GetStorageHandler {
   final getStorage = GetStorage();
 
-  setLocaleId(String userId) {
+  setUserId(String userId) {
     getStorage.write("userId", userId);
   }
 
-  String getLocaleId() {
+  String getUserId() {
     var data = getStorage.read("userId");
     return data ?? "";
   }
 
-  deleteLocaleId() {
+  deleteUserId() {
     getStorage.remove("userId");
   }
 }

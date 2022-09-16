@@ -6,14 +6,15 @@ import 'package:high_five/AuthModule/ViewModel/auth_vm.dart';
 import 'package:high_five/InboxModule/View/inbox_view.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
+final double height = Get.height;
+final double width = Get.width;
+
 class LoginView extends StatelessWidget {
   LoginView({
     Key? key,
   }) : super(key: key);
-  final AuthVM authVM = Get.put(AuthVM());
+  final AuthVM authVM = AuthVM();
 
-  final double height = Get.height;
-  final double width = Get.width;
   // final AuthVM authVM = Get.find();
   @override
   Widget build(BuildContext context) {

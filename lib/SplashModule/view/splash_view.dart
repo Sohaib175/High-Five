@@ -6,6 +6,7 @@ import 'package:high_five/utill/Constants/const_color.dart';
 class SplashView extends StatelessWidget {
   SplashView({Key? key}) : super(key: key);
   final SplashVM splashVM = Get.put(SplashVM());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
