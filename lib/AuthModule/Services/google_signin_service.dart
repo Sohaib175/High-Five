@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInServices {
-  static final GoogleSignIn googleSignIn = GoogleSignIn();
-  static Future<User?> signInWithGoogle() async {
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  Future<User?> signInWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
@@ -37,14 +37,12 @@ class GoogleSignInServices {
     return user;
   }
 
-  static signOut() async {
+  signOut() async {
     try {
-      print('Loging Out');
       // await FirebaseAuth.instance.signOut();
       await googleSignIn.signOut();
       await googleSignIn.disconnect();
     } catch (e) {
-      print('Error while signing Out $e');
       // TODO: Error Signing out
     }
   }

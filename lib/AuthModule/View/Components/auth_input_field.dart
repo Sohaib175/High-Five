@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:get/get.dart";
+import 'package:high_five/utill/Constants/const_color.dart';
 
 class InputField extends StatelessWidget {
   final double width;
@@ -65,15 +66,19 @@ class InputField extends StatelessWidget {
                         ? Icon(
                             Icons.visibility,
                             color: iconColor,
+                            size: 25,
                           )
                         : Icon(
                             Icons.visibility_off,
                             color: iconColor,
+                            size: 20,
                           ),
                   ),
-                  border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.all(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ConstColors.onPrimaryColor,
+                    ),
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(10),
                     ),
                   ),

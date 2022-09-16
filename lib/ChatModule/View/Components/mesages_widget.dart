@@ -22,36 +22,39 @@ class MessageWidget extends StatelessWidget {
         children: [
           if (!message.isSender) ...[
             const CircleAvatar(
-              radius: 25,
+              radius: 20,
               child: Icon(
                 Icons.person,
-                size: 16,
+                size: 20,
               ),
-              //, backgroundImage: AssetImage(barimage),
+            ),
+            const SizedBox(
+              width: 8,
             ),
           ],
-          _messageContaint(message),
+          _buildTextMessage(message),
         ],
       ),
     );
   }
 
-  Widget _messageContaint(ChateModel message) {
-    switch (message.messageType) {
-      case MessageType.text:
-        return _buildTextMessage(message);
-      case MessageType.image:
-        // return  _buildTextMessage(message);
-        return const SizedBox();
+//TODO: Message Types such as text, Image, Video
 
-      default:
-        return const SizedBox();
-    }
-  }
+  // Widget _messageContaint(ChateModel message) {
+  //   switch (message.messageType) {
+  //     case MessageType.text:
+  //       return _buildTextMessage(message);
+  //     case MessageType.image:
+  //       // return  _buildTextMessage(message);
+  //       return const SizedBox();
+  //     default:
+  //       return const SizedBox();
+  //   }
+  // }
 
   Container _buildTextMessage(ChateModel message) {
     return Container(
-      constraints: BoxConstraints(maxWidth: Get.width - 150),
+      constraints: BoxConstraints(maxWidth: Get.width - Get.width * 0.25),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: ConstColors.primaryColor,
@@ -70,7 +73,7 @@ class MessageWidget extends StatelessWidget {
         message.message,
         textAlign: TextAlign.justify,
         style: TextStyle(
-          fontSize: 12,
+          fontSize: 18,
           color: ConstColors.onPrimaryColor,
         ),
         softWrap: true,

@@ -67,11 +67,14 @@ class IndividualChatView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(
-                      Icons.arrow_back_ios,
-                      size: 16,
+                      Icons.arrow_back,
+                      size: 20,
+                    ),
+                    const SizedBox(
+                      width: 10,
                     ),
                     CircleAvatar(
-                      radius: 20,
+                      radius: 30,
                       backgroundImage: NetworkImage(imageURL),
                     ),
                   ],
@@ -86,15 +89,15 @@ class IndividualChatView extends StatelessWidget {
                 Text(
                   name,
                   style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                     color: ConstColors.onPrimaryColor,
                   ),
                 ),
                 Text(
                   'example@gmail.com',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 16,
                     color: ConstColors.onPrimaryColor,
                   ),
                 ),
@@ -111,7 +114,7 @@ class IndividualChatView extends StatelessWidget {
   PopupMenuButton<String> _buildPopMenuAppBar() {
     return PopupMenuButton<String>(
       color: ConstColors.primaryColor,
-      iconSize: 16,
+      iconSize: 20,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -125,7 +128,7 @@ class IndividualChatView extends StatelessWidget {
               "View Contact",
               style: TextStyle(
                 color: ConstColors.onPrimaryColor,
-                fontSize: 12,
+                fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -136,7 +139,7 @@ class IndividualChatView extends StatelessWidget {
               "Media, links, and docs",
               style: TextStyle(
                 color: ConstColors.onPrimaryColor,
-                fontSize: 12,
+                fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -147,7 +150,7 @@ class IndividualChatView extends StatelessWidget {
               "Search",
               style: TextStyle(
                 color: ConstColors.onPrimaryColor,
-                fontSize: 12,
+                fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -158,7 +161,7 @@ class IndividualChatView extends StatelessWidget {
               "Mute Notification",
               style: TextStyle(
                 color: ConstColors.onPrimaryColor,
-                fontSize: 12,
+                fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -169,7 +172,7 @@ class IndividualChatView extends StatelessWidget {
               "Wallpaper",
               style: TextStyle(
                 color: ConstColors.onPrimaryColor,
-                fontSize: 12,
+                fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -185,7 +188,7 @@ class IndividualChatView extends StatelessWidget {
         Icons.attach_file,
         color: ConstColors.onPrimaryColor,
       ),
-      iconSize: 16,
+      iconSize: 20,
       color: ConstColors.primaryColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -201,7 +204,7 @@ class IndividualChatView extends StatelessWidget {
               children: [
                 Icon(
                   Icons.file_copy_outlined,
-                  size: 16,
+                  size: 20,
                   color: ConstColors.onPrimaryColor,
                 ),
                 const SizedBox(width: 10),
@@ -209,7 +212,7 @@ class IndividualChatView extends StatelessWidget {
                   "Document",
                   style: TextStyle(
                     color: ConstColors.onPrimaryColor,
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -222,7 +225,7 @@ class IndividualChatView extends StatelessWidget {
               children: [
                 Icon(
                   Icons.camera_alt_outlined,
-                  size: 16,
+                  size: 20,
                   color: ConstColors.onPrimaryColor,
                 ),
                 const SizedBox(width: 10),
@@ -230,7 +233,7 @@ class IndividualChatView extends StatelessWidget {
                   "Camera",
                   style: TextStyle(
                     color: ConstColors.onPrimaryColor,
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -243,7 +246,7 @@ class IndividualChatView extends StatelessWidget {
               children: [
                 Icon(
                   Icons.photo,
-                  size: 16,
+                  size: 20,
                   color: ConstColors.onPrimaryColor,
                 ),
                 const SizedBox(width: 10),
@@ -251,7 +254,7 @@ class IndividualChatView extends StatelessWidget {
                   "Gallery",
                   style: TextStyle(
                     color: ConstColors.onPrimaryColor,
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -264,7 +267,7 @@ class IndividualChatView extends StatelessWidget {
               children: [
                 Icon(
                   Icons.headphones,
-                  size: 16,
+                  size: 20,
                   color: ConstColors.onPrimaryColor,
                 ),
                 const SizedBox(width: 10),
@@ -272,7 +275,7 @@ class IndividualChatView extends StatelessWidget {
                   "Audio",
                   style: TextStyle(
                     color: ConstColors.onPrimaryColor,
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -285,7 +288,7 @@ class IndividualChatView extends StatelessWidget {
               children: [
                 Icon(
                   Icons.contact_phone,
-                  size: 16,
+                  size: 20,
                   color: ConstColors.onPrimaryColor,
                 ),
                 const SizedBox(width: 10),
@@ -293,7 +296,7 @@ class IndividualChatView extends StatelessWidget {
                   "Contact",
                   style: TextStyle(
                     color: ConstColors.onPrimaryColor,
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -306,7 +309,7 @@ class IndividualChatView extends StatelessWidget {
               children: [
                 Icon(
                   Icons.location_on,
-                  size: 16,
+                  size: 20,
                   color: ConstColors.onPrimaryColor,
                 ),
                 const SizedBox(width: 10),
@@ -314,7 +317,7 @@ class IndividualChatView extends StatelessWidget {
                   "Location",
                   style: TextStyle(
                     color: ConstColors.onPrimaryColor,
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -342,7 +345,7 @@ class IndividualChatView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: Get.width - 44,
+                  width: Get.width - 80,
                   child: TextFormField(
                     maxLines: 5,
                     minLines: 1,
@@ -350,7 +353,7 @@ class IndividualChatView extends StatelessWidget {
                     controller: chatVM.textEditingController,
                     keyboardType: TextInputType.multiline,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: ConstColors.onPrimaryColor,
                     ),
@@ -363,11 +366,11 @@ class IndividualChatView extends StatelessWidget {
                       ),
                       hintText: 'Message',
                       hintStyle: const TextStyle(
-                        fontSize: 12,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: IconButton(
-                        iconSize: 18,
+                        iconSize: 20,
                         color: ConstColors.onPrimaryColor,
                         onPressed: () {
                           // indChatVM.isEmojiVisible.value =
@@ -388,7 +391,7 @@ class IndividualChatView extends StatelessWidget {
                                 ? const SizedBox.shrink()
                                 : IconButton(
                                     onPressed: () {},
-                                    iconSize: 16,
+                                    iconSize: 20,
                                     splashColor: Colors.black,
                                     splashRadius: 8,
                                     icon: Icon(
@@ -414,12 +417,12 @@ class IndividualChatView extends StatelessWidget {
           ),
           const Spacer(),
           CircleAvatar(
-            radius: 16,
+            radius: 24,
             backgroundColor: ConstColors.primaryColor,
             child: Obx(
               () => IconButton(
                 onPressed: chatVM.isSendVisible.value ? () {} : () {},
-                iconSize: 16,
+                iconSize: 20,
                 splashColor: ConstColors.onPrimaryColor.withOpacity(0.5),
                 splashRadius: 22,
                 icon: chatVM.isSendVisible.value

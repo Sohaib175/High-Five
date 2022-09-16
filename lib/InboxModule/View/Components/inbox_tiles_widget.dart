@@ -4,13 +4,10 @@ import 'package:high_five/ChatModule/View/chat_view.dart';
 import 'package:high_five/InboxModule/Model/inbox_model.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
-class ChatsListWidget extends StatelessWidget {
-  ChatsListWidget({
+class InboxTilesWidget extends StatelessWidget {
+  InboxTilesWidget({
     Key? key,
-    // required this.inboxList,
   }) : super(key: key);
-
-  // final List<InboxModel> inboxList;
 
   final List<InboxModel> inboxList = <InboxModel>[
     InboxModel(
@@ -135,14 +132,15 @@ class ChatsListWidget extends StatelessWidget {
         title: Text(
           inboxList[index].name,
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 18,
             fontWeight: FontWeight.w500,
             color: ConstColors.onSecondryColor,
           ),
         ),
         subtitle: Row(
           children: [
-            //TODO: Message status
+            //TODO: Message status Means Message sent or not
+
             // Container(
             //   height: 10,
             //   width: 10,
@@ -159,24 +157,24 @@ class ChatsListWidget extends StatelessWidget {
             //                 : Colors.green,
             //   ),
             // ),
-            const SizedBox(width: 10),
+            // const SizedBox(width: 10),
             Text(
-              inboxList[index].lastText == null
+              inboxList[index].lastText != null
                   ? inboxList[index].lastText!
                   : '',
               style: TextStyle(
-                fontSize: 10,
+                fontSize: 16,
                 color: ConstColors.onSecondryColor,
               ),
             ),
           ],
         ),
         trailing: Text(
-          inboxList[index].time == null
+          inboxList[index].time != null
               ? '${inboxList[index].time!.hour.toString()}:${inboxList[index].time!.minute.toString()}'
               : '',
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 16,
             color: ConstColors.onSecondryColor,
           ),
         ),

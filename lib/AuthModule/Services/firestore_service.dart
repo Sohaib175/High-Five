@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:high_five/AuthModule/Model/user_model.dart';
 
 class FirestoreServices {
-  // FirestoreServices();
-
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+ final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   saveDataFirebase(UserModel userModel) async {
     Map<String, dynamic> data = {
@@ -27,13 +25,12 @@ class FirestoreServices {
   }
 
   getFirebaseData(String userId) async {
-    QuerySnapshot querySnapshot = await firebaseFirestore
+   final QuerySnapshot querySnapshot = await firebaseFirestore
         .collection("users")
         .where("userId", isEqualTo: userId)
         .get();
     if (querySnapshot.docs.isNotEmpty) {
-      // print('find');
-      DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+     final  DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
 
       return UserModel(
         email: documentSnapshot.get('email'),
@@ -43,7 +40,6 @@ class FirestoreServices {
       );
     } else {
       return;
-      print('not find');
     }
   }
 }

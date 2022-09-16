@@ -5,7 +5,6 @@ class InboxServices {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   newChatService({required String email, required UserModel usermodel}) async {
-    print(email);
     QuerySnapshot querySnapshot = await firebaseFirestore
         .collection("users")
         .where("email", isEqualTo: email)
@@ -30,9 +29,6 @@ class InboxServices {
           "userIds": {usermodel.userId: true, documentSnapshot.id: true},
         },
       );
-    } else {
-      print("No user FOund");
-      //   return false;
     }
   }
 }

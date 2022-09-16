@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:high_five/InboxModule/View/inbox_view.dart';
 import 'package:high_five/SplashModule/ViewModel/splash_vm.dart';
+import 'package:high_five/utill/Constants/const_color.dart';
 
 class SplashView extends StatelessWidget {
   SplashView({Key? key}) : super(key: key);
@@ -9,8 +9,14 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
+      backgroundColor: ConstColors.primaryColor,
+      body:
+          //  AnimatedContainer(
+          //   duration: const Duration(seconds: 2),
+          //   child: Container(),
+          // ),
+
+          Stack(
         children: [
           Align(
             alignment: Alignment.topRight,
@@ -52,20 +58,14 @@ class SplashView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
+              children: const [
+                Text(
                   "Splash Screen",
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      Get.to(InboxView());
-                    },
-                    child: const Text('data'))
-                // Image(image: AssetImage("assets/Images/logo.png"))
               ],
             ),
           ),

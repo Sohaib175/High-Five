@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:high_five/AuthModule/Model/user_model.dart';
 import 'package:high_five/AuthModule/View/login_view.dart';
-import 'package:high_five/InboxModule/View/Components/chats_list_widget.dart';
+import 'package:high_five/InboxModule/View/Components/add_new_chat.dart';
+import 'package:high_five/InboxModule/View/Components/inbox_tiles_widget.dart';
 import 'package:high_five/InboxModule/ViewModel/inbox_vm.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
 class InboxView extends StatelessWidget {
   InboxView({Key? key}) : super(key: key);
-  final InboxVm _inboxVM = Get.put(InboxVm());
+  final InboxVM _inboxVM = Get.put(InboxVM());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -16,72 +16,27 @@ class InboxView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: _buildDrawer(),
         backgroundColor: Colors.white,
+        drawer: _buildDrawer(),
         appBar: _buildAppBar(),
-        // body:
-        // NestedScrollView(
-        // headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        //   return <Widget>[
-        //     const CustomSliverBar(),
-        //   ];
-        // },
         floatingActionButton: FloatingActionButton(
           backgroundColor: ConstColors.primaryColor,
           foregroundColor: ConstColors.onPrimaryColor,
           onPressed: () {
-            showModalBottomSheet(
-              backgroundColor: Colors.transparent,
-              context: context,
-              builder: (context) => Container(
-                height: Get.height * 0.4,
-                width: Get.width,
-                padding: const EdgeInsets.all(30),
-                decoration: BoxDecoration(
-                  color: ConstColors.primaryColor,
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(30),
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextField(
-                      controller: _inboxVM.emailCtrl,
-                      style: TextStyle(
-                        color: ConstColors.onPrimaryColor,
-                        fontSize: 14,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        await _inboxVM.addNewChatOnTap(_inboxVM.emailCtrl.text);
-                      },
-                      child: Text(
-                        'Add New',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: ConstColors.onPrimaryColor),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            );
+            Get.to(AddNewChatView());
           },
           child: Icon(
             Icons.add,
-            size: 16,
+            size: 30,
+            color: ConstColors.onPrimaryColor,
           ),
         ),
-
         body: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 20,
             horizontal: 10,
           ),
-          child: ChatsListWidget(),
+          child: InboxTilesWidget(),
         ),
       ),
       // ),
@@ -105,7 +60,7 @@ class InboxView extends StatelessWidget {
                   horizontal: 20,
                 ),
                 child: CircleAvatar(
-                  radius: 20,
+                  radius: 30,
                   backgroundImage: NetworkImage(
                     _inboxVM.userModel.profileImage ??
                         'https://images.unsplash.com/photo-1546019170-f1f6e46039f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
@@ -121,27 +76,20 @@ class InboxView extends StatelessWidget {
                 Text(
                   _inboxVM.userModel.name,
                   style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                     color: ConstColors.onPrimaryColor,
                   ),
                 ),
                 Text(
                   _inboxVM.userModel.email,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 16,
                     color: ConstColors.onPrimaryColor,
                   ),
                 ),
               ],
             ),
-            // AppBar(
-            //   // backgroundColor: ConstColors.primaryColor,
-
-            //   title: SizedBox(
-            //     child:
-            //   ),
-            // ),
           ],
         ),
       ),
@@ -178,12 +126,13 @@ class InboxView extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     _inboxVM.userModel.name,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     _inboxVM.userModel.email,
-                    style: TextStyle(fontSize: 12),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ],
               ),
@@ -211,7 +160,7 @@ class InboxView extends StatelessWidget {
                       child: Text(
                         'LogOut',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: ConstColors.onPrimaryColor,
                         ),
