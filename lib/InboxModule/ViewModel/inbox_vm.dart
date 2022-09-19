@@ -19,6 +19,8 @@ class InboxVM extends GetxController {
   final TextEditingController emailCtrl = TextEditingController();
   RxList<InboxModel> inboxList = <InboxModel>[].obs;
 
+
+
   fetchMyInbox() async {
     inboxList.value =
         await inboxServices.fetchInboxService(myUserID: userModel.value.userId);

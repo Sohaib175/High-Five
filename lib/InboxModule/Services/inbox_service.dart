@@ -58,15 +58,13 @@ class InboxServices {
     print(snapshot.docs.length);
     if (snapshot.docs.isNotEmpty) {
       for (int index = 0; index < snapshot.docs.length; index++) {
-        print("members");
-        print(snapshot.docs[index]["members"].keys.toList());
-        print(snapshot.docs[index]["members"].values
-            .toList()
-            .where((e) => e["userId"] != myUserID)
-            .toList()
-            .first);
         inboxData.add(InboxModel.fromFirebase(
-            snapshot.docs[index].data(), snapshot.docs[index].id, myUserID));
+            snapshot.docs[index].data(),
+            snapshot.docs[index].id,
+            snapshot.docs[index]["userIds"].keys
+                .where((e) => e != myUserID)
+                .toList()
+                .first));
       }
     }
     return inboxData;

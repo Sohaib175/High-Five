@@ -18,14 +18,9 @@ class InboxModel {
     // required this.messageStatus,
   });
 
-  factory InboxModel.fromFirebase(dynamic data, String id, String myUID) {
+  factory InboxModel.fromFirebase(dynamic data, String id, String otherUserID) {
     return InboxModel(
         chatID: id,
-        userModel: UserModel.fromJson(data["members"]
-            .values
-            .toList()
-            .where((e) => e["userId"] != myUID)
-            .toList()
-            .first));
+        userModel: UserModel.fromJson(data["members"][otherUserID]));
   }
 }
