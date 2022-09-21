@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:high_five/AuthModule/Model/user_model.dart';
 import 'package:high_five/ChatModule/Model/chat_model.dart';
 import 'package:high_five/ChatModule/View/Components/mesages_widget.dart';
 import 'package:high_five/ChatModule/ViewModel/chat_vm.dart';
 import 'package:high_five/utill/Constants/const_color.dart';
 
-class IndividualChatView extends StatelessWidget {
+class IndividualChatView extends StatefulWidget {
+  final UserModel userModel;
+  final String chatID;
+
+  final String myUID;
+
   IndividualChatView({
     Key? key,
-    required this.imageURL,
-    required this.name,
+    required this.userModel,
+    required this.myUID,
+    required this.chatID,
   }) : super(key: key);
+
+  @override
+  State<IndividualChatView> createState() => _IndividualChatViewState();
+}
+
+class _IndividualChatViewState extends State<IndividualChatView> {
   final ChatVM chatVM = Get.put(ChatVM());
-  final String imageURL;
-  final String name;
+
   final FocusNode focusNode = FocusNode();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    chatVM.onFetchChat(chatID: widget.chatID);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,14 +49,19 @@ class IndividualChatView extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  // physics:ScrollPhysics() ,
-                  itemCount: ChateModel.chatDoc.length,
-                  reverse: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return MessageWidget(
-                        message: ChateModel.chatDoc[index], barimage: imageURL);
-                  },
+                child: Obx(
+                  () => ListView.builder(
+                    // physics:ScrollPhysics() ,
+                    itemCount: chatVM.messagesData.value.length,
+                    reverse: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return MessageWidget(
+                        isMe: chatVM.messagesData.value[index].userId ==
+                            widget.myUID,
+                        message: chatVM.messagesData.value[index],
+                      );
+                    },
+                  ),
                 ),
               ),
               // _buildTextField()
@@ -75,7 +100,8 @@ class IndividualChatView extends StatelessWidget {
                     ),
                     CircleAvatar(
                       radius: 30,
-                      backgroundImage: NetworkImage(imageURL),
+                      backgroundImage:
+                          NetworkImage(widget.userModel.profileImage),
                     ),
                   ],
                 ),
@@ -87,7 +113,7 @@ class IndividualChatView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  name,
+                  widget.userModel.name,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -95,9 +121,9 @@ class IndividualChatView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'example@gmail.com',
+                  widget.userModel.email,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 10,
                     color: ConstColors.onPrimaryColor,
                   ),
                 ),
@@ -350,7 +376,7 @@ class IndividualChatView extends StatelessWidget {
                     maxLines: 5,
                     minLines: 1,
                     // focusNode: indChatVM.inpuFieldFocusNode,
-                    controller: chatVM.textEditingController,
+                    controller: chatVM.textEditingController.value,
                     keyboardType: TextInputType.multiline,
                     style: TextStyle(
                       fontSize: 14,
@@ -421,7 +447,15 @@ class IndividualChatView extends StatelessWidget {
             backgroundColor: ConstColors.primaryColor,
             child: Obx(
               () => IconButton(
-                onPressed: chatVM.isSendVisible.value ? () {} : () {},
+                onPressed: () async {
+                  if (chatVM.isSendVisible.value) {
+                    if (chatVM
+                        .textEditingController.value.value.text.isNotEmpty) {
+                      await chatVM.onSendTextMessage(
+                          myUID: widget.myUID, chatID: widget.chatID);
+                    }
+                  }
+                },
                 iconSize: 20,
                 splashColor: ConstColors.onPrimaryColor.withOpacity(0.5),
                 splashRadius: 22,
@@ -442,12 +476,4 @@ class IndividualChatView extends StatelessWidget {
       ),
     );
   }
-
-  // _buildPickEmoji() {
-  //   return EmojiPicker(
-  //     onEmojiSelected: (category, emoji) {
-  //       print(emoji);
-  //     },
-  //   );
-  // }
 }

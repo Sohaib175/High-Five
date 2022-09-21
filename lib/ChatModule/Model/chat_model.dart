@@ -65,3 +65,19 @@ class ChateModel {
     ),
   ];
 }
+
+class MessageModel {
+  String text;
+  String userId;
+  int createdOn;
+
+  MessageModel(
+      {required this.text, required this.userId, required this.createdOn});
+
+  factory MessageModel.fromJson(dynamic json) {
+    return MessageModel(
+        text: json["text"],
+        userId: json["userId"],
+        createdOn: json["createdOn"]);
+  }
+}

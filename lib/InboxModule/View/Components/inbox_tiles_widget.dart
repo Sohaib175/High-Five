@@ -18,16 +18,17 @@ class InboxTilesWidget extends StatelessWidget {
           itemCount: inboxVM.inboxList.length,
           itemBuilder: (context, index) => ListTile(
             onTap: () {
-              // Get.to(
-              //   () => IndividualChatView(
-              //     imageURL: inboxVM.inboxList[index].image,
-              //     name: inboxVM.inboxList[index].name,
-              //   ),
-              //   transition: Transition.rightToLeft,
-              //   duration: const Duration(
-              //     milliseconds: 300,
-              //   ),
-              // );
+              Get.to(
+                () => IndividualChatView(
+                  userModel: inboxVM.inboxList[index].userModel,
+                 chatID:  inboxVM.inboxList[index].chatID,
+                 myUID:  inboxVM.userModel.value.userId,
+                ),
+                transition: Transition.rightToLeft,
+                duration: const Duration(
+                  milliseconds: 300,
+                ),
+              );
             },
             leading: CircleAvatar(
               radius: 30,

@@ -6,11 +6,11 @@ import 'package:high_five/utill/Constants/const_color.dart';
 // import 'custom_messages.dart';
 
 class MessageWidget extends StatelessWidget {
-  const MessageWidget({Key? key, required this.message, required this.barimage})
+  const MessageWidget({Key? key, required this.message, required this.isMe})
       : super(key: key);
 
-  final ChateModel message;
-  final String barimage;
+  final MessageModel message;
+  final bool isMe;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +18,9 @@ class MessageWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20),
       child: Row(
         mainAxisAlignment:
-            message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+            isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          if (!message.isSender) ...[
+          if (!isMe) ...[
             const CircleAvatar(
               radius: 20,
               child: Icon(
@@ -32,7 +32,7 @@ class MessageWidget extends StatelessWidget {
               width: 8,
             ),
           ],
-          _buildTextMessage(message),
+          _buildTextMessage(message, isMe),
         ],
       ),
     );
@@ -52,13 +52,13 @@ class MessageWidget extends StatelessWidget {
   //   }
   // }
 
-  Container _buildTextMessage(ChateModel message) {
+  Container _buildTextMessage(MessageModel message, bool isMe) {
     return Container(
       constraints: BoxConstraints(maxWidth: Get.width - Get.width * 0.25),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: ConstColors.primaryColor,
-          borderRadius: message.isSender
+          borderRadius: isMe
               ? const BorderRadius.only(
                   topLeft: Radius.circular(30),
                   bottomLeft: Radius.circular(30),
@@ -70,7 +70,7 @@ class MessageWidget extends StatelessWidget {
                   bottomRight: Radius.circular(30),
                 )),
       child: Text(
-        message.message,
+        message.text,
         textAlign: TextAlign.justify,
         style: TextStyle(
           fontSize: 18,
